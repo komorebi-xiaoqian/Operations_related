@@ -480,3 +480,38 @@ systemctl enable zabbix-server zabbix-agent httpd rh-php72-php-fpm
 
 ```
 
+## 17.解决显示中文乱码问题
+
+```
+# 下载个中文字体
+yum install wqy-microhei-fonts
+# 替换
+ \cp /usr/share/fonts/wqy-microhei/wqy-microhei.ttc /usr/share/fonts/dejavu/DejaVuSans.ttf
+```
+
+## 18.安装zabbix_agent2
+
+```
+yum install zabbix-agent2 -y
+```
+
+## 19.配置zabbix_agent2
+
+```
+grep -Ev "^#|^$" /etc/zabbix/zabbix_agent2.conf 
+PidFile=/var/run/zabbix/zabbix_agent2.pid
+LogFile=/var/log/zabbix/zabbix_agent2.log
+LogFileSize=0
+Server=192.168.174.130
+ServerActive=192.168.174.130
+Hostname=nfs01
+Include=/etc/zabbix/zabbix_agent2.d/*.conf
+ControlSocket=/tmp/agent.soc
+```
+
+## 20.zabbix-agent2启动并设置开机自启
+
+```
+systemctl enable --now zabbix-agent2
+```
+
